@@ -7,19 +7,26 @@ function App() {
   useEffect(() => {
     fetch('https://api.github.com/search/repositories?q=react')
     .then(response => response.json())
-    .then(resData => setItems(resData.data))
+    .then(resData => setItems(resData.items))
     .catch(err => console.log(err))
   }, [])
 
   return (
     <div className="App">
       <h1>Repositories</h1>
-      <table>
+      <table class="repos">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>URL</th>
+        </tr>
+        </thead>
         <tbody>
         {
           items.map((item, index) => 
            <tr key={index}>
-             <td>{item.id}</td>
+             <td>{item.full_name}</td>
+             <td><a href={item.url}>{item.url}</a></td>
            </tr>
           )
         }
